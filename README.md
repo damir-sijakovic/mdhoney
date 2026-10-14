@@ -141,7 +141,8 @@ with the same font NanoVGX draws it with.
 
 ## Licences
 
-mdhoney includes these third-party libraries, each under its own licence:
+mdhoney is released under the MIT licence, see [LICENSE](LICENSE). That covers the code in
+`src/`. It includes these third-party libraries, each under its own licence:
 
 | Library | Licence | File |
 |---|---|---|
