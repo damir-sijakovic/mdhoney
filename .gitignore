@@ -1,0 +1,13 @@
+# CMake build output
+build/
+build-*/
+cmake-build-*/
+compile_commands.json
+CMakeCache.txt
+CMakeFiles/
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
