@@ -11,3 +11,6 @@ CMakeFiles/
 .idea/
 *.swp
 *~
+
+# Personal notes, kept out of the repo
+future.md

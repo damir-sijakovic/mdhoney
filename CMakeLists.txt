@@ -8,9 +8,8 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-set(LITEHTML_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/../litehtml-master)
-set(NANOVGX_DIR   ${CMAKE_CURRENT_SOURCE_DIR}/../nanovgx)
-set(CONTAINER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../litehtml-nanovg)
+set(LITEHTML_DIR ${CMAKE_CURRENT_SOURCE_DIR}/third_party/litehtml)
+set(NANOVGX_DIR  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/nanovgx)
 
 # litehtml (clang-tidy linting off, it slows the build a lot)
 set(LITEHTML_ENABLE_LINT OFF CACHE BOOL "" FORCE)
@@ -39,8 +38,8 @@ add_executable(mdhoney
     src/markdown.cpp
     src/fonts.cpp
     src/textindex.cpp
-    ${CONTAINER_DIR}/container_nanovg.cpp)
-target_include_directories(mdhoney PRIVATE src ${CONTAINER_DIR} ${NANOVGX_DIR}/example)
+    src/container_nanovg.cpp)
+target_include_directories(mdhoney PRIVATE src ${NANOVGX_DIR}/example)
 target_compile_definitions(mdhoney PRIVATE NANOVGX_EXAMPLE_DIR="${NANOVGX_DIR}/example")
 target_compile_options(mdhoney PRIVATE -Wall -Wextra)
 target_link_libraries(mdhoney PRIVATE litehtml nanovgx md4c

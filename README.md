@@ -3,8 +3,10 @@
 A small, fast Markdown reader for Linux.
 
 Markdown is converted to HTML by [md4c](https://github.com/mity/md4c), laid out by
-[litehtml](../litehtml-master), and drawn by [NanoVGX](../nanovgx) with OpenGL ES 3.
-NanoVGX is our NanoVG fork with multi-stop gradients, a grayscale mode and leak fixes.
+[litehtml](https://github.com/litehtml/litehtml), and drawn by
+[NanoVGX](third_party/nanovgx) with OpenGL ES 3. NanoVGX is a fork of
+[NanoVG](https://github.com/memononen/nanovg) with multi-stop gradients, a grayscale mode and
+leak fixes.
 
 ## Build
 
@@ -22,8 +24,7 @@ cmake -S . -B build && cmake --build build -j
 ./build/mdhoney samples/sample.md
 ```
 
-The build uses the sibling folders `../litehtml-master`, `../nanovgx` and `../litehtml-nanovg`.
-md4c is vendored in `third_party/md4c`.
+All other dependencies are included in `third_party/`, so a fresh clone builds as is.
 
 ## Usage
 
@@ -86,16 +87,17 @@ You can also drag the scrollbar.
 ## Project layout
 
 ```
-src/main.cpp       window, input, navigation, history, live reload, scrollbar, menu, find bar
-src/textindex.cpp  text runs from the litehtml layout: hit testing, selection, copy, search
-src/markdown.cpp   md4c -> HTML, heading ids, task list boxes
-src/fonts.cpp      fontconfig font discovery
-src/theme.h        light and dark stylesheets
-samples/           sample documents
-third_party/md4c   md4c 0.5.2 (MIT, see LICENSE.md there)
+src/main.cpp              window, input, navigation, history, live reload, scrollbar, menu, find bar
+src/textindex.cpp         text runs from the litehtml layout: hit testing, selection, copy, search
+src/container_nanovg.cpp  litehtml drawing container: fonts, text, boxes, borders, images, gradients
+src/markdown.cpp          md4c -> HTML, heading ids, task list boxes
+src/fonts.cpp             fontconfig font discovery
+src/theme.h               light and dark stylesheets
+samples/                  sample documents
+third_party/md4c          md4c 0.5.2, unmodified
+third_party/litehtml      litehtml, unmodified
+third_party/nanovgx       NanoVGX, our NanoVG fork (see its README)
 ```
-
-The litehtml drawing container is shared with the HTML viewer in `../litehtml-nanovg`.
 
 ## How links are handled
 
@@ -136,3 +138,14 @@ with the same font NanoVGX draws it with.
 - **Colour emoji:** the font rasteriser (stb_truetype) can't draw colour glyphs.
 - **Complex scripts:** no text shaping, so Arabic and Indic scripts don't render correctly.
 - **Wide code lines** wrap instead of scrolling sideways.
+
+## Licences
+
+mdhoney includes these third-party libraries, each under its own licence:
+
+| Library | Licence | File |
+|---|---|---|
+| md4c | MIT | `third_party/md4c/LICENSE.md` |
+| litehtml | BSD 3-clause | `third_party/litehtml/LICENSE` |
+| NanoVG / NanoVGX | zlib (NanoVGX is marked as an altered version) | `third_party/nanovgx/LICENSE.txt` |
+| Roboto fonts (fallback only) | SIL Open Font License | `third_party/nanovgx/example/LICENSE_OFL.txt` |
